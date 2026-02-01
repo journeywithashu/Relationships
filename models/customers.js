@@ -34,29 +34,30 @@ let result = await customer.find({}).populate('orders');
 console.log(result[0]);
 };
 
-findCustomer();
 
-// const addCustomer = async()=>{ 
-//      let cust = new customer({
-//           name: "John Doe",
-//      });
-//      let order1 = await order.findOne({item: "Book"});
-//      let order2 = await order.findOne({item: "Laptop"});
-//      cust.orders.push(order1);
-//      cust.orders.push(order2);
-//      let result = await cust.save();
-//      console.log(result);
-// };
 
-// addCustomer();
+const addCust = async()=>{
+     let newCust = new customer({
+          name: 'karan-arjun'
+     });
+     let newOrder = new order({
+          item: 'laptop',
+          price: 45000
+     });
+    newCust.orders.push(newOrder); 
+     await newOrder.save();
+     await newCust.save();
 
-// const addOrder = async()=>{
-//     let result = await order.insertMany([
-//           {item: "Book", price: 200},
-//           {item: "Pen", price: 20},
-//           {item: "Laptop", price: 50000},
-//     ]);
-//      console.log(result);
+     console.log("added new customer");
+     
+};
 
-// };
-//addOrder();
+const delCus = async()=>{
+     let data = await customer.findByIdAndDelete("697ebb6c4872b03f6715624e");
+     console.log(data);
+
+     
+};
+
+//addCust();
+delCus();
