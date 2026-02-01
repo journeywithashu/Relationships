@@ -26,6 +26,15 @@ const customerSchema = new Schema({
      ],
 });
 
+// 
+
+customerSchema.post("findOneAndDelete", async (customer)=>{
+     if(customer.orders.length){
+       let result =   await order.deleteMany({_id:{$in:customer.orders}});
+       console.log(result);
+       
+     }
+});
 const order = mongoose.model('Order', orderSchema);
 const customer = mongoose.model('Customer', customerSchema);
 
@@ -41,8 +50,8 @@ const addCust = async()=>{
           name: 'karan-arjun'
      });
      let newOrder = new order({
-          item: 'laptop',
-          price: 45000
+          item: 'pizza',
+          price: 499
      });
     newCust.orders.push(newOrder); 
      await newOrder.save();
@@ -53,7 +62,7 @@ const addCust = async()=>{
 };
 
 const delCus = async()=>{
-     let data = await customer.findByIdAndDelete("697ebb6c4872b03f6715624e");
+     let data = await customer.findByIdAndDelete("697ec39471f7f2b31f4cd573");
      console.log(data);
 
      
